@@ -51,16 +51,16 @@ def apply_multi_tap_delay(input_signal, sample_rate, taps, dry_mix=1.0):
 # --- MAIN EXECUTION ---
 
 # Configuration
-input_filename = 'minecraft-firework.mp3'  # <--- Change this to your file!
+input_filename = 'minecraft-firework.mp3'  
 output_filename = 'multi_tap_output.wav'
 
 # Define your 5 Custom Taps here
 my_taps = [
-   # {'time_ms': 20,  'gain_db': -12.0}, # Short "doubling" delay
-    #{'time_ms': 50,  'gain_db': -10.0},
-   # {'time_ms': 100, 'gain_db': -6.0},
-    {'time_ms': 110, 'gain_db': -10.0},
-    {'time_ms': 250, 'gain_db': -3.0}   # Longest, loudest delay
+    {'time_ms': 200,  'gain_db': -3.0}, 
+    {'time_ms': 500,  'gain_db': -10.0},
+    {'time_ms': 600, 'gain_db': -5.0},
+    {'time_ms': 1000, 'gain_db': -10.0},
+    {'time_ms': 1200, 'gain_db': -3.0}   
 ]
 
 try:
@@ -86,5 +86,7 @@ try:
     print(f"\nSUCCESS!")
     print(f"File saved to: {output_path}")
 
+except Exception as e:
+    print(f"\nERROR: {e}")
 except Exception as e:
     print(f"\nERROR: {e}")
