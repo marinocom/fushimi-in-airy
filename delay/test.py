@@ -44,8 +44,6 @@ def apply_multi_tap_delay(input_signal, sample_rate, taps, dry_mix=1.0):
         
     return output_signal
 
-# --- HOW TO USE IT ---
-
 my_taps = [
     {'time_ms': 20,  'gain_db': -12}, # 0.5dB in your prompt is very loud/clipping! 
     {'time_ms': 50,  'gain_db': -10}, # I used negative dB for safety (standard for delay taps)
