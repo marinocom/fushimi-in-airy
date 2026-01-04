@@ -5,7 +5,6 @@ import soundfile as sf
 from reverb_engine import apply_multi_instance_reverb
 
 
-#  MAIN EXECUTION 
 # this file is used to test the reverb algorithm schroeder reverb from the original reverbVx file
 
 # Configuration
