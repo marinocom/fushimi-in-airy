@@ -207,7 +207,7 @@ y[n] = -g × x[n] + x[n-D] + g × y[n-D]
 ```
 envelope[n] = exp(-5n / decay_samples)
 ```
-
+---
 
 ## 🎎 Credits 
 
@@ -215,7 +215,7 @@ envelope[n] = exp(-5n / decay_samples)
 - Leela Koushik Korampalli
 - Marino Oliveros Blanco
 
-**Inspiration:**
+**Inspirations:**
 - Fushimi Inari Shrine, Kyoto, Japan
 - Frost Children
 - Valhalla Reverb
