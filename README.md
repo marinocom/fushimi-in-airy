@@ -133,7 +133,7 @@ Rhythmic Delay:
 ```
 
 <p align="center">
-  <img src="readme_docs/rythmic_delay.png" alt="Rhythmic Delay" width="400"/>
+  <img src="gui/configs/rythmic_delay.png" alt="Rhythmic Delay" width="400"/>
 </p>
 
 ### Reverb Mode
@@ -160,7 +160,7 @@ Cathedral:
 ```
 
 <p align="center">
-  <img src="readme_docs/cathedral.png" alt="Cathedral" width="400"/>
+  <img src="gui/configs/cathedral.png" alt="Cathedral" width="400"/>
 </p>
 
 ---
