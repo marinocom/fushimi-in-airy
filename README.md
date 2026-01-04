@@ -1,16 +1,17 @@
 # fushimi-in-airy 
-### Delay-Reverb plug-ins. Kyoto based.
 
-A dual-mode audio plugin featuring multi-tap delay and multi-instance reverb effects, inspired by Japanese aesthetics and the Fushimi Inari shrine.
-
-**Created by:** Leela Koushik Korampalli & Marino Oliveros Blanco
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![NumPy](https://img.shields.io/badge/NumPy-1.20+-013243.svg)](https://numpy.org/)
 [![Librosa](https://img.shields.io/badge/Librosa-0.9+-orange.svg)](https://librosa.org/)
 [![Numba](https://img.shields.io/badge/Numba-0.56+-00A3E0.svg)](https://numba.pydata.org/)
 [![tkinter](https://img.shields.io/badge/tkinter-GUI-green.svg)](https://docs.python.org/3/library/tkinter.html)
-[![License](https://img.shields.io/badge/License-Educational-yellow.svg)](#license)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+### Delay-Reverb plug-in. Kyoto based.
+A dual-mode audio plugin featuring multi-tap delay and multi-instance reverb effects, inspired by Japanese aesthetics and the Fushimi Inari shrine.
+
+**Created by:** Leela Koushik Korampalli & Marino Oliveros Blanco
 
 ## Features
 
@@ -20,7 +21,9 @@ A dual-mode audio plugin featuring multi-tap delay and multi-instance reverb eff
 - **Y-axis:** Volume (0-150% of dry signal)
 - Climbing the mountain - delays trigger as audio reaches each gate position
 
-![Delay Mode](gui/backgrounds/background_delay.png)
+<p align="center">
+  <img src="gui/backgrounds/background_delay.png" alt="Delay Mode" width="400"/>
+</p>
 
 ### 🌙 Reverb Mode (Night Theme)
 - **Multi-instance reverb** using Schroeder algorithm
@@ -29,7 +32,9 @@ A dual-mode audio plugin featuring multi-tap delay and multi-instance reverb eff
 - **Numba-optimized** for real-time performance
 - Descending the mountain - reverbs start immediately and decay over time
 
-![Reverb Mode](gui/backgrounds/background_reverb.png)
+<p align="center">
+  <img src="gui/backgrounds/background_reverb.png" alt="Reverb Mode" width="400"/>
+</p>
 
 
 ### Controls
@@ -125,10 +130,11 @@ Slapback Echo:
 Rhythmic Delay:
 - Gates at 1/4, 1/2, 3/4, 1, 2 bars
 - Decreasing volume left to right
-
-![Rythmic Delay](docs_readme/rythmic_delay.png)
-
 ```
+
+<p align="center">
+  <img src="readme_docs/rythmic_delay.png" alt="Rhythmic Delay" width="400"/>
+</p>
 
 ### Reverb Mode
 
@@ -151,8 +157,11 @@ Small Room:
 Cathedral:
 - Gate 1: X=8000ms, Y=40% (main)
 - Gate 2: X=10000ms, Y=20% (tail)
+```
 
-# ![Cathedral](readme_docs/cathedral.png)
+<p align="center">
+  <img src="readme_docs/cathedral.png" alt="Cathedral" width="400"/>
+</p>
 
 ---
 ## Audio Specifications
@@ -199,7 +208,6 @@ y[n] = -g × x[n] + x[n-D] + g × y[n-D]
 envelope[n] = exp(-5n / decay_samples)
 ```
 
----
 
 ## 🎎 Credits 
 
@@ -216,10 +224,9 @@ envelope[n] = exp(-5n / decay_samples)
 - Schroeder, M. R. (1962). "Natural Sounding Artificial Reverberation"
 - Classic multi-tap delay design
 
----
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Copyright (c) 2026 Marino Oliveros Blanco & Leela Koushik Korampalli 
+Copyright (c) 2026 Marino Oliveros Blanco & Leela Koushik Korampalli
