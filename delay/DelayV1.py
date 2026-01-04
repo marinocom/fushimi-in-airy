@@ -15,8 +15,8 @@ class ToriDelayPlugin:
         self.scale_factor = 0.3
 
         self.script_dir = os.path.dirname(os.path.abspath(__file__))
-        self.input_file = os.path.join(self.script_dir, "minecraft.wav")
-        self.output_file = os.path.join(self.script_dir, "live_preview.wav")
+        self.input_file = "examples/delay/minecraft-firework.mp3"
+        self.output_file = "examples/delay/minecraft-firework-delay-output.wav"
 
         # 1. GATE Boundaries
         self.LEFT = 230 * self.scale_factor
@@ -33,7 +33,7 @@ class ToriDelayPlugin:
         pygame.mixer.init()
 
         # Load Background
-        bg_raw = Image.open(os.path.join(self.script_dir, "Delay.png"))
+        bg_raw = Image.open("gui/backgrounds/background_delay.png")
         self.w, self.h = int(bg_raw.width * self.scale_factor), int(bg_raw.height * self.scale_factor)
         self.bg_img = ImageTk.PhotoImage(bg_raw.resize((self.w, self.h), Image.Resampling.LANCZOS))
 
@@ -49,7 +49,7 @@ class ToriDelayPlugin:
         # 3. Load Gates
         self.gate_images, self.gate_objects = [], []
         for i in range(1, 6):
-            img = Image.open(os.path.join(self.script_dir, f"Tori {i}.png"))
+            img = Image.open(f"gui/icons/gates/torii{i}.png")
             resized = ImageTk.PhotoImage(img.resize((int(img.width*self.scale_factor), int(img.height*self.scale_factor)), Image.Resampling.LANCZOS))
             self.gate_images.append(resized)
             # Start them at BOTTOM (Silent)
@@ -57,12 +57,12 @@ class ToriDelayPlugin:
             self.gate_objects.append(gate)
 
         # 4. Load Knobs (Dry/Wet)
-        dry_raw = Image.open(os.path.join(self.script_dir, "Dry Knob.png"))
+        dry_raw = Image.open("gui/icons/knobs/dry_knob.png")
         self.dry_knob_img = ImageTk.PhotoImage(dry_raw.resize((int(dry_raw.width*self.scale_factor), int(dry_raw.height*self.scale_factor)), Image.Resampling.LANCZOS))
         # Initialize at TOP (100% Volume)
         self.dry_knob_obj = self.canvas.create_image(self.DRY_X, self.KNOB_TOP, image=self.dry_knob_img, tags="dry_knob")
 
-        wet_raw = Image.open(os.path.join(self.script_dir, "Wet Knob.png"))
+        wet_raw = Image.open("gui/icons/knobs/wet_knob.png")
         self.wet_knob_img = ImageTk.PhotoImage(wet_raw.resize((int(wet_raw.width*self.scale_factor), int(wet_raw.height*self.scale_factor)), Image.Resampling.LANCZOS))
         # Initialize at TOP (100% Volume)
         self.wet_knob_obj = self.canvas.create_image(self.WET_X, self.KNOB_TOP, image=self.wet_knob_img, tags="wet_knob")

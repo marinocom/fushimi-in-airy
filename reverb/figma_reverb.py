@@ -22,14 +22,14 @@ def figma_to_reverb_params(x_pos, y_pos, frame_width, frame_height,
     - dict with 'decay_ms' and 'gain_db'
     """
     
-    # Normalize positions to 0-1 range
+    # normalize positions to 0-1 range
     x_norm = np.clip(x_pos / frame_width, 0.0, 1.0)
     y_norm = np.clip(y_pos / frame_height, 0.0, 1.0)
     
-    # X-axis: Map to decay time (0 to max_decay_ms)
+    # x-axis: Map to decay time (0 to max_decay_ms)
     decay_ms = x_norm * max_decay_ms
     
-    # Y-axis: Map to gain in dB
+    # y-axis: Map to gain in dB
     # In Figma, Y=0 is TOP (high volume), Y=height is BOTTOM (low volume)
     # So we need to invert: (1 - y_norm) gives us bottom=0%, top=100%
     volume_percent = (1.0 - y_norm) * 100.0  # 0% to 100%
@@ -68,8 +68,8 @@ def load_reverb_gates_from_figma(json_file, frame_width, frame_height):
     
     reverb_gates = []
     
-    # Assuming the JSON exports layer names and their x/y positions
-    # Adjust the structure based on your actual Figma export format
+    # assuming the JSON exports layer names and their x/y positions
+    # adjust the structure based on your actual Figma export format
     for layer in data.get('layers', []):
         # Look for layers named "Torii" or "Gate" or similar
         if any(keyword in layer.get('name', '') for keyword in ['Torii', 'Gate', 'Reverb']):
@@ -84,14 +84,14 @@ def load_reverb_gates_from_figma(json_file, frame_width, frame_height):
 
 # Example usage and testing
 if __name__ == "__main__":
-    # Test the conversion with example coordinates
-    frame_w = 1000  # Example Figma frame width
-    frame_h = 800   # Example Figma frame height
+    # test the conversion with example coordinates
+    frame_w = 1000  # example Figma frame width
+    frame_h = 800   # example Figma frame height
     
     print("Testing Figma to Reverb Parameter Conversion:")
     print("=" * 60)
     
-    # Test cases representing different positions on the mountain
+    # test cases representing different mock positions on the mountain-grid
     test_positions = [
         ("Top-left (short decay, loud)", 100, 100),
         ("Top-right (long decay, loud)", 900, 100),
