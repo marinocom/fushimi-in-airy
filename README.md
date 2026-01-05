@@ -74,8 +74,12 @@ pip install tkinter pillow numpy librosa soundfile pygame numba --break-system-p
 Fushimi-In-Airy/
 ├── fushimi_plugin_demo.py              # Main GUI application
 ├── reverb/
+│   ├── test_reverb.py          # manual testing of the reverb engine
+│   ├── figma_reverb.py         # json-figma coordinate conversion for presets
 │   └── reverb_engine.py        # Schroeder reverb implementation
 ├── delay/
+│   ├── test_delay.py          # manual testing of delay engine
+│   ├── figma_delay.py         # json-figma coordinate conversion for presets
 │   └── DelayV1.py              # Delay engine and demo
 ├── gui/
 │   ├── backgrounds/
