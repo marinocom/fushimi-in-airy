@@ -21,7 +21,7 @@ class FushimiInAiryGUI:
         self.current_mode = 'delay'
         
         # reverb parameters
-        self.tail_factor = 0.1
+        self.tail_factor = 0.0
 
         self.script_dir = os.path.dirname(os.path.abspath(__file__))
         
