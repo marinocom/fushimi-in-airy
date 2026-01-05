@@ -61,6 +61,11 @@ pip install tkinter pillow numpy librosa soundfile pygame numba --break-system-p
 - **pygame:** Audio playback
 - **numba:** JIT compilation for reverb performance
 
+## To RUN
+
+- Clone Repository
+- Run 'fushimi_plugin_demo.py' with your selected audio file
+
 ---
 
 ## File Structure
