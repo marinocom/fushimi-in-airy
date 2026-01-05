@@ -19,6 +19,9 @@ class FushimiInAiryGUI:
         
         # current mode: 'delay' or 'reverb'
         self.current_mode = 'delay'
+
+        # current status: 'on' or 'off'
+        self.current_status = 'on'
         
         # reverb parameters
         self.tail_factor = 0.0
@@ -48,11 +51,19 @@ class FushimiInAiryGUI:
         self.MODE_SWITCH_TOP = 2300 * self.scale_factor
         self.MODE_SWITCH_BOTTOM = 2550 * self.scale_factor
 
+        # 3. on off button position
+        self.OFF_ON_SWITCH_LEFT = 1320 * self.scale_factor
+        self.OFF_ON_SWITCH_RIGHT = 1770 * self.scale_factor
+        self.OFF_ON_SWITCH_TOP = 2300 * self.scale_factor
+        self.OFF_ON_SWITCH_BOTTOM = 2570 * self.scale_factor
+
+
         pygame.mixer.init()
 
         # load backgrounds
         self.bg_delay = Image.open("gui/backgrounds/background_delay.png")
         self.bg_reverb = Image.open("gui/backgrounds/background_reverb.png")
+        self.bg_off = Image.open("gui/backgrounds/background_off.png")
         
         self.w = int(self.bg_delay.width * self.scale_factor)
         self.h = int(self.bg_delay.height * self.scale_factor)
@@ -64,10 +75,15 @@ class FushimiInAiryGUI:
             self.bg_reverb.resize((self.w, self.h), Image.Resampling.LANCZOS)
         )
 
+        self.bg_img_off = ImageTk.PhotoImage(
+            self.bg_off.resize((self.w, self.h), Image.Resampling.LANCZOS)
+        )
+
         # create canvas
         self.canvas = tk.Canvas(root, width=self.w, height=self.h)
         self.canvas.pack()
         
+       
         # set initial background
         self.bg_obj = self.canvas.create_image(0, 0, image=self.bg_img_delay, anchor="nw")
 
@@ -142,10 +158,34 @@ class FushimiInAiryGUI:
         print(f"Fushimi In-Airy initialized in {self.current_mode.upper()} mode")
         print("Press 'M' to toggle modes")
 
+
     def check_mode_switch(self, event):
-        """check if click is in mode switch area"""
-        if (self.MODE_SWITCH_LEFT <= event.x <= self.MODE_SWITCH_RIGHT and
-            self.MODE_SWITCH_TOP <= event.y <= self.MODE_SWITCH_BOTTOM):
+        """check is plugin is on"""
+        if self.current_status == 'on':
+            """check if click is in mode switch area"""
+            if (self.MODE_SWITCH_LEFT <= event.x <= self.MODE_SWITCH_RIGHT and
+                self.MODE_SWITCH_TOP <= event.y <= self.MODE_SWITCH_BOTTOM):
+                self.toggle_mode()
+        if (self.OFF_ON_SWITCH_LEFT <= event.x <= self.OFF_ON_SWITCH_RIGHT and
+                self.OFF_ON_SWITCH_TOP <= event.y <= self.OFF_ON_SWITCH_BOTTOM):
+                self.on_off()
+
+    def on_off(self):
+        if self.current_status == 'on':
+            self.current_status = 'off'
+            self.canvas.itemconfig(self.bg_obj, image=self.bg_img_off)
+            print("\n=== OFF ===\n")
+            for gate in self.gate_objects:
+                self.canvas.itemconfig(gate, state='hidden')
+        else:
+            self.current_status = 'on'
+            print("\n=== ON ===\n")
+            for gate in self.gate_objects:
+                self.canvas.itemconfig(gate, state='normal')
+            if self.current_mode == 'delay':
+                self.current_mode = 'reverb'
+            else:
+                self.current_mode = 'delay'
             self.toggle_mode()
 
     def toggle_mode(self):
@@ -184,7 +224,10 @@ class FushimiInAiryGUI:
         
         # calculate mix levels (inverted: top = 1.0, bottom = 0.0)
         dry_mix = 1.0 - ((dry_y - self.KNOB_TOP) / knob_range)
-        wet_mix = 1.0 - ((wet_y - self.KNOB_TOP) / knob_range)
+        if self.current_status == 'on':
+            wet_mix = 1.0 - ((wet_y - self.KNOB_TOP) / knob_range)
+        else:
+            wet_mix = 0
 
         # process based on mode
         if self.current_mode == 'delay':
