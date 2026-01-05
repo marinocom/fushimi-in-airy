@@ -4,6 +4,11 @@ import librosa
 import soundfile as sf
 import json
 
+# this file is mainly used to convert json coordinates to delay parameters in figma
+# not used in the main live gui application, but used to load/save torii gate presets and export gate positions
+# part of original plan documentation 
+
+
 def load_taps_from_figma(json_file, frame_w, frame_h):
     with open(json_file) as f:
         data = json.load(f)

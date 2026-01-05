@@ -1,24 +1,27 @@
 import numpy as np
 
+# this file is mainly used to convert json coordinates to reverb parameters in figma
+# not used in the main live gui application, but used to load/save torii gate presets and export gate positions
+# part of original plan documentation 
+
 def figma_to_reverb_params(x_pos, y_pos, frame_width, frame_height, 
                            max_decay_ms=10000, max_gain_db=0, min_gain_db=-60):
     """
-    Convert Figma X/Y coordinates to reverb parameters.
+    convert Figma X/Y coordinates to reverb parameters.
     
-    Based on the PDF specification:
-    - X-axis (horizontal): Decay time (0 to 10,000ms)
-    - Y-axis (vertical): Volume/Attack (0% to 100% of dry signal)
+    - x-axis (horizontal): Decay time (0 to 10,000ms)
+    - y-axis (vertical): Volume/Attack (0% to 100% of dry signal)
     
-    Parameters:
-    - x_pos: X position in Figma (0 = left edge)
-    - y_pos: Y position in Figma (0 = top edge)
-    - frame_width: Width of the Figma frame
-    - frame_height: Height of the Figma frame
-    - max_decay_ms: Maximum decay time in milliseconds (default 10000)
-    - max_gain_db: Maximum gain in dB (default 0 dB = 100%)
-    - min_gain_db: Minimum gain in dB (default -60 dB ≈ 0.1%)
+    parameters:
+    - x_pos: x position in figma (0 = left edge)
+    - y_pos: y position in figma (0 = top edge)
+    - frame_width: width of the figma frame
+    - frame_height: height of the figma frame
+    - max_decay_ms: maximum decay time in milliseconds (default 10000)
+    - max_gain_db: maximum gain in dB (default 0 dB = 100%)
+    - min_gain_db: minimum gain in dB (default -60 dB ≈ 0.1%)
     
-    Returns:
+    returns:
     - dict with 'decay_ms' and 'gain_db'
     """
     
@@ -51,15 +54,15 @@ def figma_to_reverb_params(x_pos, y_pos, frame_width, frame_height,
 
 def load_reverb_gates_from_figma(json_file, frame_width, frame_height):
     """
-    Load reverb gate parameters from a Figma export JSON file.
+    load reverb gate parameters from a Figma export JSON file.
     
-    Parameters:
-    - json_file: Path to the exported Figma JSON
-    - frame_width: Width of the Figma artboard/frame
-    - frame_height: Height of the Figma artboard/frame
-    
-    Returns:
-    - List of reverb gate dicts with 'decay_ms' and 'gain_db'
+    parameters:
+    - json_file: path to the exported figma JSON
+    - frame_width: width of the figma artboard/frame
+    - frame_height: height of the figma artboard/frame
+
+    returns:
+    List of reverb gate dicts with 'decay_ms' and 'gain_db'
     """
     import json
     
@@ -71,8 +74,8 @@ def load_reverb_gates_from_figma(json_file, frame_width, frame_height):
     # assuming the JSON exports layer names and their x/y positions
     # adjust the structure based on your actual Figma export format
     for layer in data.get('layers', []):
-        # Look for layers named "Torii" or "Gate" or similar
-        if any(keyword in layer.get('name', '') for keyword in ['Torii', 'Gate', 'Reverb']):
+        # Look for torii layer
+        if any(keyword in layer.get('name', '') for keyword in ['torii', 'gate']):
             x = layer.get('x', 0)
             y = layer.get('y', 0)
             
@@ -82,16 +85,16 @@ def load_reverb_gates_from_figma(json_file, frame_width, frame_height):
     return reverb_gates
 
 
-# Example usage and testing
+# example usage and testing
 if __name__ == "__main__":
-    # test the conversion with example coordinates
-    frame_w = 1000  # example Figma frame width
-    frame_h = 800   # example Figma frame height
+    # testing the conversion with example coordinates
+    frame_w = 1000  
+    frame_h = 800   
     
     print("Testing Figma to Reverb Parameter Conversion:")
     print("=" * 60)
     
-    # test cases representing different mock positions on the mountain-grid
+    # test cases representing different mock positions on the mountain grid
     test_positions = [
         ("Top-left (short decay, loud)", 100, 100),
         ("Top-right (long decay, loud)", 900, 100),
