@@ -44,6 +44,9 @@ A dual-mode audio plugin featuring multi-tap delay and multi-instance reverb eff
 - **Mode Switch:** Toggle between Delay and Reverb modes (press 'M' or click switch area)
 - **On/Off Button** Japan Flag shaped button to turn plug in on or off
 
+<p align="center">
+  <img src="gui/backgrounds/background_off.png" alt="Reverb Mode" width="400"/>
+</p>
 
 ## Installation - Development
 
