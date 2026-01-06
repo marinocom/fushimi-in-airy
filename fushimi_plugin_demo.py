@@ -42,7 +42,7 @@ class FushimiInAiryGUI:
         # 2. knob boundaries 
         self.KNOB_TOP = 2320 * self.scale_factor
         self.KNOB_BOTTOM = 2537 * self.scale_factor
-        self.DRY_X = 255 * self.scale_factor
+        self.DRY_X = 354 * self.scale_factor
         self.WET_X = 538 * self.scale_factor
         
         # 3. mode switch button position
@@ -51,11 +51,23 @@ class FushimiInAiryGUI:
         self.MODE_SWITCH_TOP = 2300 * self.scale_factor
         self.MODE_SWITCH_BOTTOM = 2550 * self.scale_factor
 
-        # 3. on off button position
+        # 4. on off button position
         self.OFF_ON_SWITCH_LEFT = 1320 * self.scale_factor
         self.OFF_ON_SWITCH_RIGHT = 1770 * self.scale_factor
         self.OFF_ON_SWITCH_TOP = 2300 * self.scale_factor
         self.OFF_ON_SWITCH_BOTTOM = 2570 * self.scale_factor
+
+        # 5. add gate
+        self.ADD_SWITCH_LEFT = 100 * self.scale_factor
+        self.ADD_SWITCH_RIGHT = 200 * self.scale_factor
+        self.ADD_SWITCH_TOP = 2300 * self.scale_factor
+        self.ADD_SWITCH_BOTTOM = 2400 * self.scale_factor
+
+        # 5. remove gate
+        self.REMOVE_SWITCH_LEFT = self.ADD_SWITCH_LEFT
+        self.REMOVE_SWITCH_RIGHT = self.ADD_SWITCH_RIGHT
+        self.REMOVE_SWITCH_TOP = 2455 * self.scale_factor
+        self.REMOVE_SWITCH_BOTTOM = 2555 * self.scale_factor
 
 
         pygame.mixer.init()
@@ -100,12 +112,19 @@ class FushimiInAiryGUI:
             self.gate_images.append(resized)
             # start them at bottom (silent)
             gate = self.canvas.create_image(
-                self.LEFT + (150*i*self.scale_factor), 
+                self.LEFT, 
                 self.BOTTOM, 
                 image=resized, 
                 tags="gate"
             )
             self.gate_objects.append(gate)
+        #hide all but 1 gate and set gate number to 1
+        for i, gate in (enumerate(self.gate_objects)):
+            if 0< i < 5:
+                self.canvas.itemconfig(gate, state='hidden')
+        self.gate_num = 1
+        
+
 
         # 4. load knobs (dry/wet)
         dry_raw = Image.open("gui/icons/knobs/dry_knob.png")
@@ -158,6 +177,8 @@ class FushimiInAiryGUI:
         print(f"Fushimi In-Airy initialized in {self.current_mode.upper()} mode")
         print("Press 'M' to toggle modes")
 
+        #self.canvas.create_rectangle(self.ADD_SWITCH_LEFT, self.ADD_SWITCH_TOP, self.ADD_SWITCH_RIGHT, self.ADD_SWITCH_BOTTOM, outline="green")
+
 
     def check_mode_switch(self, event):
         """check is plugin is on"""
@@ -166,6 +187,12 @@ class FushimiInAiryGUI:
             if (self.MODE_SWITCH_LEFT <= event.x <= self.MODE_SWITCH_RIGHT and
                 self.MODE_SWITCH_TOP <= event.y <= self.MODE_SWITCH_BOTTOM):
                 self.toggle_mode()
+            if (self.ADD_SWITCH_LEFT <= event.x <= self.ADD_SWITCH_RIGHT and
+                self.ADD_SWITCH_TOP <= event.y <= self.ADD_SWITCH_BOTTOM):
+                self.add_gate()
+            elif (self.REMOVE_SWITCH_LEFT <= event.x <= self.REMOVE_SWITCH_RIGHT and
+                self.REMOVE_SWITCH_TOP <= event.y <= self.REMOVE_SWITCH_BOTTOM):
+                self.remove_gate()
         if (self.OFF_ON_SWITCH_LEFT <= event.x <= self.OFF_ON_SWITCH_RIGHT and
                 self.OFF_ON_SWITCH_TOP <= event.y <= self.OFF_ON_SWITCH_BOTTOM):
                 self.on_off()
@@ -211,6 +238,39 @@ class FushimiInAiryGUI:
     def drag_wet(self, event):
         new_y = max(self.KNOB_TOP, min(event.y, self.KNOB_BOTTOM))
         self.canvas.coords(self.wet_knob_obj, self.WET_X, new_y)
+
+    # def check_gate_add_remove(self, event): #ddsdahsjhbjsdabhjsahbjsabhjsahjbsahjksajhbdbhsjahbjdsahsahksdasda
+    #     """check is plugin is on"""
+    #     if self.current_status == 'on':
+    #         """check if click is in add switch area"""
+    #         if (self.ADD_SWITCH_LEFT <= event.x <= self.ADD_SWITCH_RIGHT and
+    #             self.ADD_SWITCH_TOP <= event.y <= self.ADD_SWITCH_BOTTOM):
+    #             self.add_gate()
+    #         elif (self.REMOVE_SWITCH_LEFT <= event.x <= self.REMOVE_SWITCH_RIGHT and
+    #             self.REMOVE_SWITCH_TOP <= event.y <= self.REMOVE_SWITCH_BOTTOM):
+    #             self.remove_gate()
+
+
+    def add_gate(self):
+        if self.gate_num < 5:
+            self.gate_num += 1
+            # Show the next gate in the list
+            target_gate = self.gate_objects[self.gate_num - 1]
+            self.canvas.itemconfig(target_gate, state='normal')
+            
+            print(f"Gates Active: {self.gate_num}")
+
+        
+    
+    def remove_gate(self):
+        if self.gate_num > 0:
+            # Hide the current highest gate
+            target_gate = self.gate_objects[self.gate_num - 1]
+            self.canvas.itemconfig(target_gate, state='hidden')
+            self.canvas.coords(target_gate, self.LEFT, self.BOTTOM)
+            self.gate_num -= 1
+            print(f"Gates Active: {self.gate_num}")
+
 
     def process_and_play(self, event):
         """process audio based on current mode"""
