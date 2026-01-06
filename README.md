@@ -42,6 +42,7 @@ A dual-mode audio plugin featuring multi-tap delay and multi-instance reverb eff
 - **Dry Knob:** Original signal volume (0-100%)
 - **Wet Knob:** Effect signal volume (0-100%)
 - **Mode Switch:** Toggle between Delay and Reverb modes (press 'M' or click switch area)
+- **Add/Remove Torii Gates:** Create or destroy instances of Torii gates that affect the plug-in performance, more or less delay taps or reverb instances 
 - **On/Off Button** Japan Flag shaped button to turn plug in on or off
 
 <p align="center">
