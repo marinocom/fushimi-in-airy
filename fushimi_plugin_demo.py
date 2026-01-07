@@ -1,4 +1,4 @@
-import tkinter as tk
+ import tkinter as tk
 from PIL import Image, ImageTk
 import numpy as np
 import librosa
@@ -20,7 +20,7 @@ class FushimiInAiryGUI:
         # current mode: 'delay' or 'reverb'
         self.current_mode = 'delay'
 
-        # current status: 'on' or 'off'
+        # current status: 'on' or 'off' 
         self.current_status = 'on'
         
         # reverb parameters
@@ -207,8 +207,11 @@ class FushimiInAiryGUI:
         else:
             self.current_status = 'on'
             print("\n=== ON ===\n")
-            for gate in self.gate_objects:
-                self.canvas.itemconfig(gate, state='normal')
+            count = 0
+            for gate in self.gate_objects:    
+                if count <= (self.gate_num - 1):
+                    self.canvas.itemconfig(gate, state='normal')
+                count += 1
             if self.current_mode == 'delay':
                 self.current_mode = 'reverb'
             else:
