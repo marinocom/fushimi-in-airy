@@ -152,8 +152,8 @@ def schroeder_reverb(input_signal, sample_rate, decay_time_ms, initial_gain=1.0)
     reverb_output = serial_allpass_filters(comb_output, sample_rate, allpass_delays, allpass_gain)
     
     # apply decay envelope
-    decay_samples = int(sample_rate * decay_time_ms / 1000.0)
-    reverb_output = apply_decay_envelope(reverb_output, decay_samples)
+    #decay_samples = int(sample_rate * decay_time_ms / 1000.0)
+    #reverb_output = apply_decay_envelope(reverb_output, decay_samples)
     
     return reverb_output
 
